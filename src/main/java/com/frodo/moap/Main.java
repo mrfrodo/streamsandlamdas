@@ -41,12 +41,8 @@ public class Main {
                 .map(Attribute::getAName)
                 .collect(Collectors.toSet());
 
-        System.out.println(attributeNames);
 
         columns.removeIf(column -> !attributeNames.contains(column.getCName()));
-
-
-        System.out.println();
 
     }
 
