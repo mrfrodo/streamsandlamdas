@@ -1,7 +1,5 @@
 package com.frodo.moap;
 
-import com.frodo.moap.Column;
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -15,7 +13,6 @@ public class Main {
                 if (!c.getCName().equals(a.getAName())) {
                     // remove c from columns list
                     System.out.println(" remove c from columns list");
-
                 }
             }
         }
@@ -31,7 +28,7 @@ public class Main {
     protected void removeColumnsFromAttributes3(List<Column> columns, List<Attribute> attributes) {
 
         attributes.forEach(attribute -> {
-            columns.removeIf(column -> attribute.getAName().equals(column.getCName()));
+            columns.removeIf(column -> !attribute.getAName().equals(column.getCName()));
         });
     }
 
@@ -40,7 +37,6 @@ public class Main {
         Set<String> attributeNames = attributes.stream()
                 .map(Attribute::getAName)
                 .collect(Collectors.toSet());
-
 
         columns.removeIf(column -> !attributeNames.contains(column.getCName()));
 

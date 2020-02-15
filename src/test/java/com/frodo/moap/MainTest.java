@@ -4,10 +4,11 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.fail;
 
 public class MainTest {
 
@@ -18,16 +19,16 @@ public class MainTest {
 
         List<Attribute> attributes = createAttributes();
         List<Column> columns = createColumns();
+
         main.removeColumnsFromAttributes4(columns, attributes);
+
+        List<String> shouldNotContainList = Stream.of("name4")
+                .collect(Collectors.toList());
 
         assertThat("columns", columns.size(), equalTo(2));
 
-        //check columns dont have name4
-        columns.forEach(c -> {
-            if(c.getCName().equals("name4")) {
-                fail();
-            }
-        });
+        System.out.println(columns);
+        System.out.println(shouldNotContainList);
 
     }
 
@@ -37,36 +38,15 @@ public class MainTest {
         List<Attribute> attributes = createAttributes2();
         List<Column> columns = createColumns2();
 
-        System.out.println("before");
-        System.out.println("c: " + columns);
-        System.out.println("a: " + attributes);
         main.removeColumnsFromAttributes4(columns, attributes);
-        System.out.println("after");
-        System.out.println("c: " + columns);
-        System.out.println("a: " + attributes);
+
+        List<String> shoudNotContainList = Stream.of("name99", "name101", "name102")
+                .collect(Collectors.toList());
 
         assertThat("columns", columns.size(), equalTo(0));
 
-        //check columns dont have name1
-        columns.forEach(c -> {
-            if(c.getCName().equals("name1")) {
-                fail();
-            }
-        });
-
-        //check columns dont have name2
-        columns.forEach(c -> {
-            if(c.getCName().equals("name2")) {
-                fail();
-            }
-        });
-
-        //check columns dont have name3
-        columns.forEach(c -> {
-            if(c.getCName().equals("name3")) {
-                fail();
-            }
-        });
+        System.out.println(columns);
+        System.out.println(shoudNotContainList);
 
     }
 
@@ -76,29 +56,14 @@ public class MainTest {
         List<Attribute> attributes = createAttributes3();
         List<Column> columns = createColumns3();
 
-        System.out.println("before");
-        System.out.println("c: " + columns);
-        System.out.println("a: " + attributes);
         main.removeColumnsFromAttributes4(columns, attributes);
-        System.out.println("after");
-        System.out.println("c: " + columns);
-        System.out.println("a: " + attributes);
 
         assertThat("columns", columns.size(), equalTo(1));
 
-        //check columns dont have name2
-        columns.forEach(c -> {
-            if(c.getCName().equals("name2")) {
-                fail();
-            }
-        });
-
-        //check columns dont have name3
-        columns.forEach(c -> {
-            if(c.getCName().equals("name3")) {
-                fail();
-            }
-        });
+        List<String> shoudNotContainList = Stream.of("name99", "name101")
+                .collect(Collectors.toList());
+        System.out.println(columns);
+        System.out.println(shoudNotContainList);
 
     }
 
