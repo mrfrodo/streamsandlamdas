@@ -5,10 +5,12 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class MainTest {
@@ -37,7 +39,6 @@ public class MainTest {
 
         System.out.println(columns);
         System.out.println(shouldNotContainList);
-
     }
 
     @Test
@@ -55,7 +56,6 @@ public class MainTest {
 
         System.out.println(columns);
         System.out.println(shoudNotContainList);
-
     }
 
     @Test
@@ -72,6 +72,24 @@ public class MainTest {
                 .collect(Collectors.toList());
         System.out.println(columns);
         System.out.println(shoudNotContainList);
+
+    }
+
+    @Test
+    public void removeColumnsOk4() {
+
+        List<Attribute> attributes = data.createAttributes4();
+        List<Column> columns = data.createColumns4();
+
+        main.removeColumnsFromAttributes4(columns, attributes);
+
+        assertThat("columns", columns.size(), equalTo(3));
+
+        List<String> actualList = columns.stream()
+                .map(Column::getCName)
+                .collect(Collectors.toList());
+
+        assertThat(actualList, containsInAnyOrder("name1", "name2", "name3"));
 
     }
 
