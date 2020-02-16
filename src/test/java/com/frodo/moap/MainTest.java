@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class MainTest {
@@ -93,5 +93,40 @@ public class MainTest {
 
     }
 
+    @Test
+    public void removeColumnsOk5() {
+
+        List<Attribute> attributes = data.createAttributes5();
+        List<Column> columns = data.createColumns5();
+
+        main.removeColumnsFromAttributes4(columns, attributes);
+
+        assertThat("columns", columns.size(), equalTo(0));
+
+        List<String> actualList = columns.stream()
+                .map(Column::getCName)
+                .collect(Collectors.toList());
+
+        assertThat(actualList, empty());
+
+    }
+
+    @Test
+    public void removeColumnsOk6() {
+
+        List<Attribute> attributes = data.createAttributes6();
+        List<Column> columns = data.createColumns6();
+
+        main.removeColumnsFromAttributes4(columns, attributes);
+
+        assertThat("columns", columns.size(), equalTo(2));
+
+        List<String> actualList = columns.stream()
+                .map(Column::getCName)
+                .collect(Collectors.toList());
+
+        assertThat(actualList, containsInAnyOrder("name1", "name2"));
+
+    }
 
 }
